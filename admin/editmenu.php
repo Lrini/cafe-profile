@@ -52,7 +52,7 @@ include "function.php";
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white  " href="menu.php">
+          <a class="nav-link text-white active bg-gradient-primary " href="menu.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10"></i>
             </div>
@@ -60,7 +60,7 @@ include "function.php";
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-primary " href="catering.php">
+          <a class="nav-link text-white " href="catering.php">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10"></i>
             </div>
@@ -71,7 +71,7 @@ include "function.php";
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0 ">
       <div class="mx-3">
-        <a class="btn bg-gradient-primary mt-4 w-100" href="../index.php" type="button">Log Out</a>
+        <a class="btn bg-gradient-primary mt-4 w-100"href="../index.php" type="button">Log Out</a>
       </div>
     </div>
   </aside>
@@ -82,9 +82,9 @@ include "function.php";
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Catering</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Menu</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Catering</h6>
+          <h6 class="font-weight-bolder mb-0">Menu</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -132,22 +132,33 @@ include "function.php";
           <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">Input paket cetering</h6>
+                <h6 class="text-white text-capitalize ps-3">Edit Menu dan makanan</h6>
               </div>
             </div>
             <div class="card-body">
+            <?php
+                $koneksi = new mysqli("localhost", "root", "", "cafe");
+                $id = $_GET['id_menu'];
+                $data = mysqli_query($koneksi,"select * from menu where id_menu='$id'");
+                while($d = mysqli_fetch_array($data)){
+            ?>
             <form action="" method="post" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <label>Nama paket catering</label>
-                    <input type="text" class="form-control"  id="nama_paket" name="nama_paket" placeholder="Nama Paket Catering">
+                 <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" class="form-control"  id="id_menu" name="id_menu" value="<?php echo $d ['id_menu'] ?> ">
                   </div>
                   <div class="form-group">
-                    <label> Keterangan catering </label>
-                    <input type="text" class="form-control" id="isi" name="isi" placeholder="Keterangan paket catering">
+                    <label>Nama makanan</label>
+                    <input type="text" class="form-control"  id="menu" name="menu" value="<?php echo $d ['menu'] ?> ">
                   </div>
                   <div class="form-group">
-                    <label> Harga catering </label>
-                    <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga catering">
+                    <label> Harga </label>
+                    <input type="text" class="form-control" id="harga" name="harga" value="<?php echo $d ['harga'] ?> " >
+                  </div>
+                  <br></br>
+                   <div class="form-group">
+                    <label>Gambar Makanan</label>
+                    <input type="file" id="gambar" name="gambar">
                   </div>
             </div>
             <div class="card-footer">
@@ -157,66 +168,24 @@ include "function.php";
           </div> 
           <?php 
                  if(isset($_POST['simpan'])){
-                    if(tambahcatering ($_POST) > 0){
+                    if(editmenu ($_POST) > 0){
                         echo " 
                              <script>
-                                document.location.href = 'catering.php?r=sukses';
+                                document.location.href = 'menu.php?r=sukses';
                             </script>";
                             }else{
                               
                                 echo " 
                                     <script>
-                                        document.location.href = 'catering.php?r=gagal';
+                                        document.location.href = 'menu.php?r=gagal';
                                      </script>";
                                 }
                     }
+                  }
 	        ?> 
         </form>
         </div>
       </div>
-      <div class="row"> 
-      <div class="card my-4">
-            <div class="card-body">   
-                <table id="dataTables" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th >Paket Catering</th>
-                      <th >Keterangan Paket</th>
-                      <th >Harga</th>
-                      <th >Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <?php
-                            $conn = new mysqli("localhost", "root", "", "cafe");
-                            if ($conn->connect_errno) {
-                              echo "Failed to connect to MySQL: " . $conn->connect_error;
-                            }
-                            
-                            $no = 1;
-                            $res = $conn->query("select * from catering");
-                            while($row = $res->fetch_assoc()){
-                            echo '
-                                  <tr>
-                                  
-                                    <td>'.$row['nama_paket'].'</td>
-                                    <td>'.$row['isi'].'</td>
-                                    <td>
-                                    Rp.'.$row['harga'].'
-                                    </td>
-                                    <td class="align-middle">
-                                    <a href ="editcatering.php?id_catering='.$row['id_catering'].'"><i class="btn  btn-primary">edit</i></a>
-                                    <a href ="hapuscatering.php?id_catering='.$row['id_catering'].'"><i class="btn  btn-danger">hapus</i></a>
-                                    </td>
-                                  </tr>
-                                ';
-                                $no++;
-                              }
-                              ?>
-                  </tbody>
-                </table>
-            </div>
-                            </div>
           </div>
   </main>
   <script>
@@ -236,5 +205,4 @@ include "function.php";
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="./assets/js/material-dashboard.min.js?v=3.0.2"></script>
 </body>
-
 </html>

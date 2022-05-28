@@ -71,7 +71,7 @@ include "function.php";
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0 ">
       <div class="mx-3">
-        <a class="btn bg-gradient-primary mt-4 w-100" href="../index.php" type="button">Log Out</a>
+        <a class="btn bg-gradient-primary mt-4 w-100"href="../index.php" type="button">Log Out</a>
       </div>
     </div>
   </aside>
@@ -136,18 +136,28 @@ include "function.php";
               </div>
             </div>
             <div class="card-body">
+            <?php
+                $koneksi = new mysqli("localhost", "root", "", "cafe");
+                $id = $_GET['id_catering'];
+                $data = mysqli_query($koneksi,"select * from catering where id_catering='$id'");
+                while($d = mysqli_fetch_array($data)){
+            ?>
             <form action="" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                    <label>ID Catering</label>
+                    <input type="text" class="form-control"  id="id_catering" name="id_catering" value="<?php echo $d ['id_catering'] ?> ">
+                  </div>
                   <div class="form-group">
                     <label>Nama paket catering</label>
-                    <input type="text" class="form-control"  id="nama_paket" name="nama_paket" placeholder="Nama Paket Catering">
+                    <input type="text" class="form-control"  id="nama_paket" name="nama_paket" value="<?php echo $d ['nama_paket'] ?> ">
                   </div>
                   <div class="form-group">
                     <label> Keterangan catering </label>
-                    <input type="text" class="form-control" id="isi" name="isi" placeholder="Keterangan paket catering">
+                    <input type="text" class="form-control" id="isi" name="isi" value="<?php echo $d ['isi'] ?> ">
                   </div>
                   <div class="form-group">
                     <label> Harga catering </label>
-                    <input type="text" class="form-control" id="harga" name="harga" placeholder="Harga catering">
+                    <input type="text" class="form-control" id="harga" name="harga" value="<?php echo $d ['harga'] ?> ">
                   </div>
             </div>
             <div class="card-footer">
@@ -157,7 +167,7 @@ include "function.php";
           </div> 
           <?php 
                  if(isset($_POST['simpan'])){
-                    if(tambahcatering ($_POST) > 0){
+                    if(editcatering ($_POST) > 0){
                         echo " 
                              <script>
                                 document.location.href = 'catering.php?r=sukses';
@@ -170,53 +180,11 @@ include "function.php";
                                      </script>";
                                 }
                     }
+                }
 	        ?> 
         </form>
         </div>
       </div>
-      <div class="row"> 
-      <div class="card my-4">
-            <div class="card-body">   
-                <table id="dataTables" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th >Paket Catering</th>
-                      <th >Keterangan Paket</th>
-                      <th >Harga</th>
-                      <th >Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <?php
-                            $conn = new mysqli("localhost", "root", "", "cafe");
-                            if ($conn->connect_errno) {
-                              echo "Failed to connect to MySQL: " . $conn->connect_error;
-                            }
-                            
-                            $no = 1;
-                            $res = $conn->query("select * from catering");
-                            while($row = $res->fetch_assoc()){
-                            echo '
-                                  <tr>
-                                  
-                                    <td>'.$row['nama_paket'].'</td>
-                                    <td>'.$row['isi'].'</td>
-                                    <td>
-                                    Rp.'.$row['harga'].'
-                                    </td>
-                                    <td class="align-middle">
-                                    <a href ="editcatering.php?id_catering='.$row['id_catering'].'"><i class="btn  btn-primary">edit</i></a>
-                                    <a href ="hapuscatering.php?id_catering='.$row['id_catering'].'"><i class="btn  btn-danger">hapus</i></a>
-                                    </td>
-                                  </tr>
-                                ';
-                                $no++;
-                              }
-                              ?>
-                  </tbody>
-                </table>
-            </div>
-                            </div>
           </div>
   </main>
   <script>
