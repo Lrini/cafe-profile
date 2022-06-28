@@ -108,22 +108,22 @@
         </div>
       </div>
       <div class="container" data-aos="fade-up">
-              <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <form action="function.php" method="post" enctype="multipart/form-data">
                   <div class="row">
                     <div class="col-md-6 form-group">
-                      <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                      <input type="text" name="nama" class="form-control" id="nama" placeholder="Your Name" required>
                     </div>
                     <div class="col-md-6 form-group mt-3 mt-md-0">
-                      <input type="email" class="form-control" name="email" id="email" placeholder="Your Phone number" required>
+                      <input type="text" class="form-control" name="nohp" id="nohp" placeholder="Your Phone number" required>
                     </div>
                   </div>
                   <div class="form-group mt-3">
-                    <textarea class="form-control" name="message" rows="8" placeholder="Message" required></textarea>
+                    <textarea class="form-control" name="pesan" rows="8" placeholder="pesan" required></textarea>
                   </div>
-                  <div class="text-center"><button type="submit" class="btn btn-primary">Send Message</button></div>
-                </form>
-        
-
+                  <div class="card-footer">
+                    <button type="submit" href="" name="simpan" value="simpan" class="btn btn-primary">Submit</button>
+                   </div>
+              </form>
         </div>
 
       </div>
