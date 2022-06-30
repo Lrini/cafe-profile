@@ -97,6 +97,43 @@
 
       </div>
     </section><!-- End Menu Section -->
+    <section id="menu" class="menu section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Menu</h2>
+          <p>Catering</p>
+        </div>
+
+        <?php
+                            $conn = new mysqli("localhost", "root", "", "cafe");
+                            if ($conn->connect_errno) {
+                              echo "Failed to connect to MySQL: " . $conn->connect_error;
+                            }
+                            
+                            $no = 1;
+                            $res = $conn->query("select * from catering");
+                            while($row = $res->fetch_assoc()){
+                            echo '
+                            <div class="col-lg-12 menu-item filter-starters">
+                             
+                              <div class="menu-content">
+                                '.$row['nama_paket'].'</a><span> Rp.'.$row['harga'].'</span>
+                              </div>
+                              <div class="menu-ingredients">
+                              '.$row['isi'].'
+                              </div>
+                          </div> 
+                                ';
+                                $no++;
+                              }
+                              ?>
+
+        </div>
+        
+
+      </div>
+    </section><!-- End Menu Section -->
 
     <!-- ======= Contact Section ======= -->
     <section id="order" class="order">
