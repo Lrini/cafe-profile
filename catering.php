@@ -40,35 +40,65 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
+          <li><a class="nav-link scrollto" href="index.php">Home</a></li>
           <li><a class="nav-link scrollto" href="menu.php">Menu</a></li>
-          <li><a class="nav-link scrollto" href="catering.php">Catering</a></li>
+          <li><a class="nav-link scrollto active" href="catering.php">Catering</a></li>
     </div>
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center">
-    <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
-      <div class="row">
-        <div class="col-lg-12">
-          <h1>Welcome to <span>Rumah Selingkuhan Cafe</span></h1>
-          <h2></h2>
-        </div>
-      </div>
-    </div>
+  <section>
   </section><!-- End Hero -->
+
+  <main id="main">
+    <!-- ======= Menu Section ======= -->
+    <section id="menu" class="menu section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Menu</h2>
+          <p>Catering</p>
+        </div>
+
+        <?php
+                            $conn = new mysqli("localhost", "root", "", "cafe");
+                            if ($conn->connect_errno) {
+                              echo "Failed to connect to MySQL: " . $conn->connect_error;
+                            }
+                            
+                            $no = 1;
+                            $res = $conn->query("select * from catering");
+                            while($row = $res->fetch_assoc()){
+                            echo '
+                            <div class="col-lg-12 menu-item filter-starters">
+                                <div class="menu-content">
+                                    '.$row['nama_paket'].'</a><span> Rp.'.$row['harga'].'</span>
+                                </div>
+                                <div class="menu-ingredients">
+                                '.$row['isi'].'
+                                </div>
+                                
+                            </div> 
+                                ';
+                                $no++;
+                              }
+                              ?>
+
+        </div>
+        
+
+      </div>
+    </section><!-- End Menu Section -->
+  </main><!-- End #main -->
+
   <!-- ======= Footer ======= -->
   <footer id="footer">
-  
-
-    <div class="container">
       <div class="copyright">
         &copy; Copyright <strong><span>Rumah Selingkuhan Cafe</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
         Designed by <a href="https://bootstrapmade.com/">Lrini</a>
       </div>
-    </div>
   </footer><!-- End Footer -->
 
   <div id="preloader"></div>
