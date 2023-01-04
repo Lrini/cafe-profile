@@ -74,7 +74,7 @@
                             <div class="col-lg-12 menu-item filter-starters">
                               <img src="admin/menu/'.$row['gambar'].'" class="menu-img">
                               <div class="menu-content">
-                                '.$row['menu'].'</a><span> Rp.'.$row['harga'].'</span>
+                                '.$row['menu'].'</a><span> Rp.'.$row['harga'].'<a href="pesan.php"?id_menu='.$row['id_menu'].'"><i class="btn  btn-primary">Pesan</i></a></span>
                               </div>
                               <div class="menu-ingredients">
                                  Menu makanan
