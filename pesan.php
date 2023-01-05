@@ -41,56 +41,53 @@
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto" href="index.php">Home</a></li>
-          <li><a class="nav-link scrollto active" href="menu.php">Menu</a></li>
-          <li><a class="nav-link scrollto" href="catering.php">Order</a></li>
+          <li><a class="nav-link scrollto" href="menu.php">Menu</a></li>
+          <li><a class="nav-link scrollto active" href="catering.php">Catering</a></li>
     </div>
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
   <section>
-    
   </section><!-- End Hero -->
+    </section><!-- End Menu Section -->
 
-  <main id="main">
-    <!-- ======= Menu Section ======= -->
-    <section id="menu" class="menu section-bg">
+    <!-- ======= Contact Section ======= -->
+    <section id="order" class="order">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Menu</h2>
-          <p>Check Our Tasty Menu</p>
+          <h2>Order</h2>
+          <p>Contact Us</p>
         </div>
-
-        <?php
-                            $conn = new mysqli("localhost", "root", "", "cafe");
-                            if ($conn->connect_errno) {
-                              echo "Failed to connect to MySQL: " . $conn->connect_error;
-                            }
-                            
-                            $no = 1;
-                            $res = $conn->query("select * from menu");
-                            while($row = $res->fetch_assoc()){
-                            echo '
-                            <div class="col-lg-12 menu-item filter-starters">
-                              <img src="admin/menu/'.$row['gambar'].'" class="menu-img">
-                              <div class="menu-content">
-                                '.$row['menu'].'</a><span> Rp.'.$row['harga'].' <a href ="pesan.php?id_menu='.$row['id_menu'].'"><i class="btn  btn-primary">Pesan</i></a> </span>
-                              </div>
-                              <div class="menu-ingredients">
-                                 Menu makanan
-                              </div>
-                          </div> 
-                                ';
-                                $no++;
-                              }
-                              ?>
-
+      </div>
+      <div class="container" data-aos="fade-up">
+              <form action="function.php" method="post" enctype="multipart/form-data">
+                  <div class="row">
+                    <div class="col-md-6 form-group">
+                      <input type="text" name="nama" class="form-control" id="nama" placeholder="Your Name" required>
+                    </div>
+                    <div class="col-md-6 form-group mt-3 mt-md-0">
+                      <input type="text" class="form-control" name="nohp" id="nohp" placeholder="Your Phone number" required>
+                    </div>
+                  </div>
+                  <div class="form-group mt-3">
+                    <?php
+                        $koneksi = new mysqli("localhost", "root", "", "cafe");
+                        $id = $_GET['id_menu'];
+                        $data = mysqli_query($koneksi,"select * from menu where id_menu='$id'");
+                        while($d = mysqli_fetch_array($data)){
+                    ?>
+                     <input type="text" class="form-control"  id="pesan" name="pesan" value="<?php echo $d ['menu'] ?> ">
+                     <?php } ?>
+                  </div>
+                  <div class="card-footer">
+                    <button type="submit" href="" name="simpan" value="simpan" class="btn btn-primary">Submit</button>
+                   </div>
+              </form>
         </div>
-        
 
       </div>
-    </section><!-- End Menu Section -->
-    
+    </section><!-- End Contact Section -->
 
   </main><!-- End #main -->
 
