@@ -40,7 +40,7 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto" href="index.php">Home</a></li>
+          <li><a class="nav-link scrollto" href="home.php">Home</a></li>
           <li><a class="nav-link scrollto active" href="menu.php">Menu</a></li>
           <li><a class="nav-link scrollto" href="catering.php">Order</a></li>
     </div>

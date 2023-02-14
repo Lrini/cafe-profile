@@ -38,13 +38,14 @@
       <h1 class="logo me-auto me-lg-0"><a href="index.php">Rumah Selingkuhan</a></h1>
      
 
-      <!-- <nav id="navbar" class="navbar order-last order-lg-0">
+      <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
+          <li><a class="nav-link scrollto active" href="home.php">Home</a></li>
           <li><a class="nav-link scrollto" href="menu.php">Menu</a></li>
           <li><a class="nav-link scrollto" href="catering.php">Catering</a></li>
-      </ul>
-    </nav> -->
+          <li><a class="nav-link scrollto" href="logout.php">Logout</a></li>
+        </ul>
+       </nav>
     </div>
   </header><!-- End Header -->
 
@@ -53,24 +54,8 @@
     <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
       <div class="row">
         <div class="col-lg-12">
-          <div class="card">
-              <div class="card-body">
-                <h1 align="center"  style="color:black;">Login</h1>
-                <form action="proses_login.php" method="POST">
-                    <div class="form-group">
-                      <label style="color: black;">Username :</label>
-                      <input type="text" class="form-control" name="user" placeholder="Username">
-                  </div>
-                  <div class="form-group">
-                    <label style="color:black;">Password</label>
-                    <input type="text" class="form-control" name="pass" placeholder="Password">
-                  </div>
-                  <br>
-                  <button class="btn btn-primary" type="submit" name="login">Login </button>
-                  <a href="register.php" class="btn btn-success">Daftar</a>
-                </form>
-              </div>
-            </div>
+          <h1>Welcome to <span>Rumah Selingkuhan Cafe</span></h1>
+          <h2></h2>
         </div>
       </div>
     </div>
