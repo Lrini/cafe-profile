@@ -1,3 +1,15 @@
+<?php 
+session_start();
+include("koneksi.php");
+ if(!isset($_SESSION['id_user'])){
+    ?>
+    <script type="text/javascript">
+      alert('login dulu');window.location='index.php';
+    </script>
+    <?php
+  }else{
+    ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,6 +55,9 @@
           <li><a class="nav-link scrollto" href="home.php">Home</a></li>
           <li><a class="nav-link scrollto active" href="menu.php">Menu</a></li>
           <li><a class="nav-link scrollto" href="catering.php">Order</a></li>
+          <li><a class="nav-link scrollto" href="index.php">Logout</a></li>
+        </ul>
+      </nav>
     </div>
   </header><!-- End Header -->
 
@@ -63,6 +78,7 @@
 
         <?php
                             $conn = new mysqli("localhost", "root", "", "cafe");
+                            $user = $_SESSION['id_user'];
                             if ($conn->connect_errno) {
                               echo "Failed to connect to MySQL: " . $conn->connect_error;
                             }
@@ -74,7 +90,7 @@
                             <div class="col-lg-12 menu-item filter-starters">
                               <img src="admin/menu/'.$row['gambar'].'" class="menu-img">
                               <div class="menu-content">
-                                '.$row['menu'].'</a><span> Rp.'.$row['harga'].' <a href ="pesan.php?id_menu='.$row['id_menu'].'"><i class="btn  btn-primary">Pesan</i></a> </span>
+                                '.$row['menu'].'</a><span> Rp.'.$row['harga'].' <a href ="pesan.php?id_menu='.$row['id_menu'].'&id_user='.$user.'"><i class="btn  btn-primary">Pesan</i></a> </span>
                               </div>
                               <div class="menu-ingredients">
                                  Menu makanan
@@ -125,3 +141,7 @@
 </body>
 
 </html>
+
+<?php
+  }
+?>

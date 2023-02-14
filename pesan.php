@@ -1,3 +1,15 @@
+<?php 
+session_start();
+include("koneksi.php");
+ if(!isset($_SESSION['id_user'])){
+    ?>
+    <script type="text/javascript">
+      alert('login dulu');window.location='index.php';
+    </script>
+    <?php
+  }else{
+    ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,8 +53,11 @@
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li><a class="nav-link scrollto" href="home.php">Home</a></li>
-          <li><a class="nav-link scrollto" href="menu.php">Menu</a></li>
-          <li><a class="nav-link scrollto active" href="catering.php">Catering</a></li>
+          <li><a class="nav-link scrollto active" href="menu.php">Menu</a></li>
+          <li><a class="nav-link scrollto" href="catering.php">Catering</a></li>
+          <li><a class="nav-link scrollto" href="index.php">Logout</a></li>
+        </ul>
+      </nav>
     </div>
   </header><!-- End Header -->
 
@@ -61,30 +76,44 @@
         </div>
       </div>
       <div class="container" data-aos="fade-up">
+            <?php
+                $koneksi = new mysqli("localhost", "root", "", "cafe");
+                $id_menu = $_GET['id_menu'];
+                $id_user = $_GET['id_user'];
+                $data = mysqli_query($koneksi,"insert into chart (id_user,id_menu) values ('$id_user','$id_menu')");
+                $test = mysqli_query($koneksi,"select user.id_user,user.nama,user.hp,menu.menu, chart.jumlah, chart.harga FROM user,menu,chart WHERE user.id_user = chart.id_user AND menu.id_menu = chart.id_menu and menu.id_menu= $id_menu and user.id_user=$id_user");
+                $ulang = mysqli_fetch_array($test); 
+            ?>
               <form action="function.php" method="post" enctype="multipart/form-data">
                   <div class="row">
-                    <div class="col-md-6 form-group">
-                      <input type="text" name="nama" class="form-control" id="nama" placeholder="Your Name" required>
+                    <div class="col-md-3 form-group">
+                      <input type="text" name="nama" class="form-control" id="nama" value="<?php echo $ulang['nama']?>">
                     </div>
-                    <div class="col-md-6 form-group mt-3 mt-md-0">
-                      <input type="text" class="form-control" name="nohp" id="nohp" placeholder="Your Phone number" required>
+                    <div class="col-md-3 form-group">
+                      <input type="text" class="form-control" name="nohp" id="nohp" value="<?php echo $ulang ['hp']?>">
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <input type="text" class="form-control" name="menu" id="menu" value="<?php echo $ulang ['menu']?>">
                     </div>
                   </div>
-                  <div class="form-group mt-3">
-                    <?php
-                        $koneksi = new mysqli("localhost", "root", "", "cafe");
-                        $id = $_GET['id_menu'];
-                        $data = mysqli_query($koneksi,"select * from menu where id_menu='$id'");
-                        while($d = mysqli_fetch_array($data)){
-                    ?>
-                     <input type="text" class="form-control"  id="pesan" name="pesan" value="<?php echo $d ['menu'] ?> ">
-                     <?php } ?>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-1 form-group ">
+                        <button type="submit" class="btn btn-primary" name="add" value="add">Add</button>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <input type="text" class="form-control" name="jumlah" id="jumlah" value="<?php  echo $ulang['jumlah']?>">
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <a href="" class="btn btn-primary">Less</a>
+                    </div>
                   </div>
+                  <br>
                   <div class="card-footer">
-                    <button type="submit" href="" name="simpan" value="simpan" class="btn btn-primary">Submit</button>
+                    <button type="submit" name="simpan" value="simpan" class="btn btn-primary">Submit</button>
                    </div>
               </form>
-        </div>
+            </div>
 
       </div>
     </section><!-- End Contact Section -->
@@ -122,3 +151,7 @@
 </body>
 
 </html>
+
+<?php 
+}
+?>

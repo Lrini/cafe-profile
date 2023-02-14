@@ -1,3 +1,15 @@
+<?php 
+session_start();
+include("koneksi.php");
+ if(!isset($_SESSION['id_user'])){
+    ?>
+    <script type="text/javascript">
+      alert('login dulu');window.location='index.php';
+    </script>
+    <?php
+  }else{
+    ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +55,7 @@
           <li><a class="nav-link scrollto active" href="home.php">Home</a></li>
           <li><a class="nav-link scrollto" href="menu.php">Menu</a></li>
           <li><a class="nav-link scrollto" href="catering.php">Catering</a></li>
-          <li><a class="nav-link scrollto" href="logout.php">Logout</a></li>
+          <li><a class="nav-link scrollto" href="index.php">Logout</a></li>
         </ul>
        </nav>
     </div>
@@ -91,3 +103,7 @@
 </body>
 
 </html>
+
+<?php
+} 
+?>
