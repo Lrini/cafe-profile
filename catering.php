@@ -55,6 +55,7 @@ include("koneksi.php");
           <li><a class="nav-link scrollto" href="home.php">Home</a></li>
           <li><a class="nav-link scrollto" href="menu.php">Menu</a></li>
           <li><a class="nav-link scrollto active" href="catering.php">Catering</a></li>
+          <li><a class="nav-link scrollto" href="Keranjang.php">Cart</a></li>
           <li><a class="nav-link scrollto" href="index.php">Logout</a></li>
         </ul>
       </nav>

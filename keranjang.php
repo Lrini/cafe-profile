@@ -52,27 +52,75 @@ include("koneksi.php");
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="home.php">Home</a></li>
+          <li><a class="nav-link scrollto" href="home.php">Home</a></li>
           <li><a class="nav-link scrollto" href="menu.php">Menu</a></li>
-          <li><a class="nav-link scrollto" href="catering.php">Catering</a></li>
-          <li><a class="nav-link scrollto" href="Keranjang.php">Cart</a></li>
+          <li><a class="nav-link scrollto" href="catering.php">Order</a></li>
+          <li><a class="nav-link scrollto active" href="Keranjang.php">Cart</a></li>
           <li><a class="nav-link scrollto" href="index.php">Logout</a></li>
         </ul>
-       </nav>
+      </nav>
     </div>
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center">
-    <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
-      <div class="row">
-        <div class="col-lg-12">
-          <h1>Welcome to <span>Rumah Selingkuhan Cafe</span></h1>
-          <h2></h2>
-        </div>
-      </div>
-    </div>
+  <section>
+    
   </section><!-- End Hero -->
+
+  <main id="main">
+    <!-- ======= Menu Section ======= -->
+    <section id="menu" class="menu section-bg">
+        <div class="container">
+            <div class="section-title">
+                <table id="dataTables" class="table">
+                  <thead>
+                    <tr>
+                      <th style="color: white;">Menu/Paket</th>
+                      <th style="color: white;">Harga</th>
+                      <th style="color: white;">Jumlah Pembelian</th>
+                      <th style="color: white;">Total</th>
+                      <th style="color: white;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                           $conn = new mysqli("localhost", "root", "", "cafe");
+                            if ($conn->connect_errno) {
+                              echo "Failed to connect to MySQL: " . $conn->connect_error;
+                            }
+                            
+                            $user = $_SESSION['id_user'];
+                            $no = 1;
+                            $res = $conn->query("select menu.menu, menu.harga, chart.jumlah, chart.harga as total, chart.id_user, chart.id_chart from menu inner join chart where menu.id_menu = chart.id_menu and chart.id_user = '$user'");
+                            while($row = $res->fetch_assoc()){
+                            echo '
+                                  <tr>
+                                  
+                                    <td style="color: white;">'.$row['menu'].'</td>
+                                    <td style="color: white;">'.$row['harga'].'</td>
+                                    <td style="color: white;">
+                                    '.$row['jumlah'].'
+                                    </td>
+                                    <td style="color: white;">
+                                    Rp.'.$row['total'].'
+                                    </td>
+                                    <td class="align-middle">
+                                    <a href ="add.php?id_chart='.$row['id_chart'].'"><i class="btn  btn-success">Add</i></a>
+                                    <a href ="editcatering.php?id_chart='.$row['id_chart'].'"><i class="btn  btn-primary">edit</i></a>
+                                    <a href ="hapuscatering.php?id_chart='.$row['id_chart'].'"><i class="btn  btn-danger">hapus</i></a>
+                                    </td>
+                                  </tr>
+                                ';
+                                $no++;
+                              }
+                    ?>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </section><!-- End Menu Section -->
+  </main><!-- End #main -->
+
   <!-- ======= Footer ======= -->
   <footer id="footer">
   
@@ -106,5 +154,5 @@ include("koneksi.php");
 </html>
 
 <?php
-} 
+  }
 ?>

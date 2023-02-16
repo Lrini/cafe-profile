@@ -1,4 +1,4 @@
-<?php 
+ <?php 
 session_start();
 include("koneksi.php");
  if(!isset($_SESSION['id_user'])){
@@ -55,6 +55,7 @@ include("koneksi.php");
           <li><a class="nav-link scrollto" href="home.php">Home</a></li>
           <li><a class="nav-link scrollto active" href="menu.php">Menu</a></li>
           <li><a class="nav-link scrollto" href="catering.php">Order</a></li>
+          <li><a class="nav-link scrollto" href="Keranjang.php">Cart</a></li>
           <li><a class="nav-link scrollto" href="index.php">Logout</a></li>
         </ul>
       </nav>
