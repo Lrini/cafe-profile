@@ -66,6 +66,29 @@ include("koneksi.php");
   <section>
     
   </section><!-- End Hero -->
+      <?php
+       $koneksi = mysqli_connect("localhost","root","","cafe");
+       if(isset($_GET['add']) == 'add'){
+            $id_chart = $_GET['id_chart'];
+                    $qty = 1;
+            $cek1 = mysqli_query($koneksi, "SELECT * FROM chart WHERE id_chart = '$id_chart' and id_user='$_SESSION[id_user]'");
+            $test = mysqli_fetch_array($cek1);
+                    $harga = $test['harga'];
+                    $quan = $test['jumlah'];
+                    $qtot = $qty + $quan;
+                    $jum = $harga * $qtot;
+                    if(mysqli_num_rows($cek1) == 0){
+              echo "tidak ada data";
+            }else{
+              $add = mysqli_query($koneksi, "UPDATE chart SET jumlah='$gtot', harga='$jum' WHERE id_chart='$id_chart'");
+              if($add){
+                  header("location : keranjang.php");
+              }else{
+                echo" gagal ";
+              }
+            }
+          }
+    ?>
 
   <main id="main">
     <!-- ======= Menu Section ======= -->
@@ -91,7 +114,7 @@ include("koneksi.php");
                             
                             $user = $_SESSION['id_user'];
                             $no = 1;
-                            $res = $conn->query("select menu.menu, menu.harga, chart.jumlah, chart.harga as total, chart.id_user, chart.id_chart from menu inner join chart where menu.id_menu = chart.id_menu and chart.id_user = '$user'");
+                            $res = $conn->query("select menu.menu, chart.harga,chart.total,chart.jumlah, chart.id_chart from chart inner join menu where chart.id_menu = menu.id_menu and id_user = $user");
                             while($row = $res->fetch_assoc()){
                             echo '
                                   <tr>
@@ -106,6 +129,7 @@ include("koneksi.php");
                                     </td>
                                     <td class="align-middle">
                                     <a href ="add.php?id_chart='.$row['id_chart'].'"><i class="btn  btn-success">Add</i></a>
+                                    <a href ="less.php?id_chart='.$row['id_chart'].'"><i class="btn btn-success">Less</i></a>
                                     <a href ="editcatering.php?id_chart='.$row['id_chart'].'"><i class="btn  btn-primary">edit</i></a>
                                     <a href ="hapuscatering.php?id_chart='.$row['id_chart'].'"><i class="btn  btn-danger">hapus</i></a>
                                     </td>

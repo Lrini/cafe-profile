@@ -6,7 +6,7 @@
 	 $data1 = $cek['jumlah'];
 	 $data2 = $cek['harga'];
 	 $qty =1 ;
-	 $qtytot = $data1 + $qty;
+	 $qtytot = $data1 - $qty;
 	 $hrg = $data2 * $qtytot;
 	 $cek3 = mysqli_query($koneksi,"update chart set jumlah='$qtytot', total='$hrg' where id_chart='$chart' ");
 	 if ($cek3 >  0 ){
